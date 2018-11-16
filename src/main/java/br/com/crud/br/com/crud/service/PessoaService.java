@@ -13,7 +13,7 @@ public class PessoaService {
     @Autowired
     private PessoaRepository repository;
 
-    public List<Pessoa> listarTodos() {
-        return repository.findAll();
+    public List<Pessoa> listarTodos(String nome, String cpf) {
+        return repository.findByNameAndCpfIgnoreCase(nome, cpf);
     }
 }
