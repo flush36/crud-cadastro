@@ -24,7 +24,6 @@ public class Pessoa {
     @JoinColumn(name="pessoa_endereco")
     private List<Telefone> telefones;
 
-
     public Long getId() {
         return id;
     }
