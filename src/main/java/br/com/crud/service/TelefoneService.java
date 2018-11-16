@@ -1,4 +1,4 @@
-package br.com.crud.br.com.crud.service;
+package br.com.crud.service;
 
 import org.springframework.stereotype.Service;
 

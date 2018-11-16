@@ -1,6 +1,6 @@
-package br.com.crud.br.com.crud.repository;
+package br.com.crud.repository;
 
-import br.com.crud.br.com.crud.models.Pessoa;
+import br.com.crud.models.Pessoa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
