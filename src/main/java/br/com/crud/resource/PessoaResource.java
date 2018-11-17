@@ -1,9 +1,11 @@
 package br.com.crud.resource;
 
+import br.com.crud.error.ErroDTO;
 import br.com.crud.error.ValidacaoException;
 import br.com.crud.models.Pessoa;
 import br.com.crud.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +52,16 @@ public class PessoaResource {
            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro.getErroDTO());
        }
 
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deletar(@PathVariable("id") Long id) {
+        try {
+            pessoaService.delete(id);
+            return  ResponseEntity.ok().build();
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
 

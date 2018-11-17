@@ -52,4 +52,8 @@ public class PessoaService {
         });
         return pessoaAtualizada;
     }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
 }
