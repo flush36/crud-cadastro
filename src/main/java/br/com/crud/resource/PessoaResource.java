@@ -1,6 +1,5 @@
 package br.com.crud.resource;
 
-import br.com.crud.error.ErroDTO;
 import br.com.crud.error.ValidacaoException;
 import br.com.crud.models.Pessoa;
 import br.com.crud.service.PessoaService;
