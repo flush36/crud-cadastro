@@ -17,7 +17,13 @@ public class PessoaService {
     private PessoaRepository repository;
 
     public List<Pessoa> listarPorNomeOuCpf(String nome, String cpf) {
-        return repository.findByNameAndCpfIgnoreCase(nome, cpf);
+        return repository.findByNameAndCpfIgnoreCase(validarNull(nome),validarNull(cpf));
+    }
+
+    private String validarNull(String param) {
+        if(param == null )
+           return "";
+        return param;
     }
 
     public List<Pessoa> listarTodos() {
