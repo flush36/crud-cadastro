@@ -13,14 +13,16 @@ public class Pessoa {
 
     private String nome;
 
+    @Column(nullable=false, unique=true)
     private String cpf;
 
     @Column(name = "data_nascimento")
+    @Temporal(TemporalType.DATE)
     private Date dataNascimento;
 
     private String email;
 
-    @OneToMany
+    @OneToMany(cascade= {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name="pessoa_endereco")
     private List<Telefone> telefones;
 

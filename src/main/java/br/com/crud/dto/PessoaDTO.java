@@ -1,5 +1,9 @@
 package br.com.crud.dto;
 
+import br.com.crud.models.Telefone;
+
+import java.util.List;
+
 public class PessoaDTO {
 
     private Long id;
@@ -13,6 +17,8 @@ public class PessoaDTO {
     private Integer idade;
 
     private Integer qtdTelefones;
+
+    private List<Telefone> telefones;
 
     public Long getId() {
         return id;
@@ -60,6 +66,14 @@ public class PessoaDTO {
 
     public void setQtdTelefones(Integer qtdTelefones) {
         this.qtdTelefones = qtdTelefones;
+    }
+
+    public List<Telefone> getTelefones() {
+        return telefones;
+    }
+
+    public void setTelefones(List<Telefone> telefones) {
+        this.telefones = telefones;
     }
 }
 

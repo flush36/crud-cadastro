@@ -43,6 +43,7 @@ public class PessoaService {
             dto.setCpf(pessoa.getCpf());
             dto.setIdade(calcularIdade(pessoa.getDataNascimento()));
             dto.setQtdTelefones(pessoa.getTelefones().size());
+            dto.setTelefones(pessoa.getTelefones());
             dtoList.add(dto);
         });
         return dtoList;
