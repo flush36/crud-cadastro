@@ -1,9 +1,8 @@
 package br.com.crud.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 
 @Entity(name = "telefone")
 public class Telefone {
@@ -15,6 +14,11 @@ public class Telefone {
     private String ddd;
 
     private String numero;
+
+    @ManyToOne
+    @JoinColumn(name="fkpessoa")
+    @JsonBackReference
+    private Pessoa pessoa;
 
     public Long getId() {
         return id;

@@ -1,5 +1,7 @@
 package br.com.crud.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -22,8 +24,9 @@ public class Pessoa {
 
     private String email;
 
-    @OneToMany(cascade= {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(cascade= {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name="pessoa_endereco")
+    @JsonManagedReference
     private List<Telefone> telefones;
 
     public Long getId() {

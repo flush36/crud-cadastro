@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path ="pessoa")
@@ -33,6 +34,12 @@ public class PessoaResource {
         if(!pessoas.isEmpty())
             return ResponseEntity.ok(pessoas);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<?> findById(@PathVariable("id") Long id) {
+        Optional<Pessoa> pessoa = pessoaService.findById(id);
+       return pessoa == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok(pessoa);
     }
 
     @PostMapping
