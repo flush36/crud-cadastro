@@ -33,9 +33,10 @@ public class PessoaService {
     }
 
     private List<PessoaDTO> convertoToPessoaDTO(List<Pessoa> pessoas) {
-        PessoaDTO dto = new PessoaDTO();
+
         List<PessoaDTO> dtoList = new ArrayList<>();
         pessoas.forEach(pessoa -> {
+            PessoaDTO dto = new PessoaDTO();
             dto.setId(pessoa.getId());
             dto.setNome(pessoa.getNome());
             dto.setEmail(pessoa.getEmail());
