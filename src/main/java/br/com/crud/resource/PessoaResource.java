@@ -1,5 +1,6 @@
 package br.com.crud.resource;
 
+import br.com.crud.dto.PessoaDTO;
 import br.com.crud.error.ValidacaoException;
 import br.com.crud.models.Pessoa;
 import br.com.crud.service.PessoaService;
@@ -20,7 +21,7 @@ public class PessoaResource {
 
     @PostMapping("pesquisar")
         public ResponseEntity<?> listarPorNomeOuCpf(@RequestBody Pessoa pessoa) {
-        List<Pessoa> pessoas = pessoaService.listarPorNomeOuCpf(pessoa.getNome(), pessoa.getCpf());
+        List<PessoaDTO> pessoas = pessoaService.listarPorNomeOuCpf(pessoa.getNome(), pessoa.getCpf());
         if(!pessoas.isEmpty())
             return ResponseEntity.ok(pessoas);
         return ResponseEntity.noContent().build();
@@ -28,7 +29,7 @@ public class PessoaResource {
 
     @GetMapping
     public ResponseEntity<?> listarTodos() {
-        List<Pessoa> pessoas = pessoaService.listarTodos();
+        List<PessoaDTO> pessoas = pessoaService.listarTodos();
         if(!pessoas.isEmpty())
             return ResponseEntity.ok(pessoas);
         return ResponseEntity.noContent().build();

@@ -1,5 +1,6 @@
 package br.com.crud.service;
 
+import br.com.crud.dto.PessoaDTO;
 import br.com.crud.error.ErroDTO;
 import br.com.crud.error.ValidacaoException;
 import br.com.crud.models.Pessoa;
@@ -7,8 +8,12 @@ import br.com.crud.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PessoaService {
@@ -16,8 +21,9 @@ public class PessoaService {
     @Autowired
     private PessoaRepository repository;
 
-    public List<Pessoa> listarPorNomeOuCpf(String nome, String cpf) {
-        return repository.findByNameAndCpfIgnoreCase(validarNull(nome),validarNull(cpf));
+    public List<PessoaDTO> listarPorNomeOuCpf(String nome, String cpf) {
+        List<Pessoa> pessoas = repository.findByNameAndCpfIgnoreCase(validarNull(nome), validarNull(cpf));
+        return convertoToPessoaDTO(pessoas);
     }
 
     private String validarNull(String param) {
@@ -26,8 +32,33 @@ public class PessoaService {
         return param;
     }
 
-    public List<Pessoa> listarTodos() {
-        return repository.findAll();
+    private List<PessoaDTO> convertoToPessoaDTO(List<Pessoa> pessoas) {
+        PessoaDTO dto = new PessoaDTO();
+        List<PessoaDTO> dtoList = new ArrayList<>();
+        pessoas.forEach(pessoa -> {
+            dto.setId(pessoa.getId());
+            dto.setNome(pessoa.getNome());
+            dto.setEmail(pessoa.getEmail());
+            dto.setCpf(pessoa.getCpf());
+            dto.setIdade(calcularIdade(pessoa.getDataNascimento()));
+            dto.setQtdTelefones(pessoa.getTelefones().size());
+            dtoList.add(dto);
+        });
+        return dtoList;
+    }
+
+
+    private Integer calcularIdade(Date dataNascimento) {
+        Date dataAtual = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        String[] anoAtual = sdf.format(dataAtual).split("/");
+        String[] anoNascimento = sdf.format(dataNascimento).split("/");
+        int idade = Integer.parseInt(anoAtual[0]) - Integer.parseInt(anoNascimento[0]);
+        return  idade < 0 ? 0 : idade;
+    }
+
+    public List<PessoaDTO> listarTodos() {
+        return convertoToPessoaDTO(repository.findAll());
     }
 
     public Pessoa cadastrar(Pessoa pessoa) throws ValidacaoException {
