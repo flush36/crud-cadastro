@@ -1,4 +1,6 @@
-package br.com.crud.br.com.crud.models;
+package br.com.crud.models;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,17 +15,19 @@ public class Pessoa {
 
     private String nome;
 
+    @Column(nullable=false, unique=true)
     private String cpf;
 
     @Column(name = "data_nascimento")
+    @Temporal(TemporalType.DATE)
     private Date dataNascimento;
 
     private String email;
 
-    @OneToMany
+    @OneToMany(cascade= {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name="pessoa_endereco")
+    @JsonManagedReference
     private List<Telefone> telefones;
-
 
     public Long getId() {
         return id;
